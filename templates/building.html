@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Broad Quay, Bristol</h1>
+      <p class="col-md-8 fs-4">Fire Door Inspection</p>
+    </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Search Asset by Number</h2>
+      <form class="my-auto d-flex" action="{{ url_for('showAsset') }}" method="post">
+        <input class="form-control me-2" type="search" placeholder="Search Asset Number" aria-label="Search" name="assetNumber">
+        <button class="btn btn-danger" type="submit">Search</button>
+      </form>
+      <br><br>
+    </div>
+    
+  </div>
+  <div class="row">
+    <div class="col-md-6 text-center">
+      <br><br>
+      <h3>Overall Compliance</h3>
+      <canvas width="100" id="GraphDoorCompliance"></canvas>
+    </div>
+    <div class="col-md-6 col-md-offset-2 text-center">
+      <br><br>
+      <h3>Operating Gaps</h3>
+      <canvas id="GraphOperatingGaps"></canvas>
+    </div>
+  </div>
+  <div class="row g-5">
+    <div class="col text-center">
+      <br><br>
+      <h3>Actions Required</h3>
+      <canvas id="GraphActionsRequired"></canvas>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+const ctx = document.getElementById('GraphDoorCompliance').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Compliant', 'Non-Compliant'],
+        datasets: [{
+            data: [14, 105],
+            backgroundColor: [
+                'rgba(90, 155, 213)',
+                'rgba(237, 125, 49)'
+            ],
+            borderColor: [
+                'rgba(90, 155, 213)',
+                'rgba(237, 125, 49)'
+            ],
+
+        }]
+    }
+});
+  
+const ctx2 = document.getElementById('GraphOperatingGaps').getContext('2d');
+const myChart2 = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+        labels: ['Compliant', 'Needs Adjusting'],
+        datasets: [{
+            data: [47, 72],
+            backgroundColor: [
+                'rgba(90, 155, 213)',
+                'rgba(237, 125, 49)'
+            ],
+            borderColor: [
+                'rgba(90, 155, 213)',
+                'rgba(237, 125, 49)'
+            ],
+        }]
+    }
+});
+
+const ctx3 = document.getElementById('GraphActionsRequired').getContext('2d');
+const myChart3 = new Chart(ctx3, {
+    type: 'bar',
+    data: {
+        labels: ['Replace Seal', 'Adjust Closer', 'Fit Intumescent Pads', 'Repair Hinge Fixings', 'Fit Kick Plate'],
+        datasets: [{
+            label: 'Number of Actions',
+            data: [43, 26, 41, 1, 2],
+            backgroundColor: [
+                'rgba(237, 125, 49)'
+            ],
+            borderColor: [
+                'rgba(237, 125, 49)'
+            ],
+        }]
+    }
+});
+</script>
+{% endblock %}

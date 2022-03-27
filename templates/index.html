@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Inspections WebApp</h1>
+      <p class="col-md-8 fs-4">Welcome to F.I.R.E. Consultancy's web application for fire safety inspections.</p>
+    </div>
+</div>
+
+<div class="container py-3">
+  <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal">Broad Quay, Bristol</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">119<small class="text-muted fw-light"> Assets</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>14 Compliant Assets</li>
+            <li>105 Non-Compliant Assets</li>
+            <li>192 Outstanding Actions</li>
+          </ul>
+          <a href="/eb/bq/" class="w-100 btn btn-lg btn-danger btn-custom">View Assets</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal">Building #2</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">0<small class="text-muted fw-light"> Assets</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>0 Compliant Assets</li>
+            <li>0 Non-Compliant Assets</li>
+            <li>0 Outstanding Actions</li>
+          </ul>
+          <button type="button" class="w-100 btn btn-lg btn-secondary">View Assets</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+          <h4 class="my-0 fw-normal">Building #3</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">0<small class="text-muted fw-light"> Assets</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>0 Compliant Assets</li>
+            <li>0 Non-Compliant Assets</li>
+            <li>0 Outstanding Actions</li>
+          </ul>
+          <button type="button" class="w-100 btn btn-lg btn-secondary">View Assets</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
