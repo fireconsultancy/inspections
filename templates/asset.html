@@ -3,231 +3,122 @@
 {% block content %}
 <div class="p-5 mb-4 bg-light rounded-3">
     <div class="container-fluid py-5">
-      <h1 class="display-5 fw-bold">Asset #{{data[0]}}</h1>
-      <p class="col-md-8 fs-4">Fire Doorset</p>
+      <h1 class="display-5 fw-bold">Asset #{{assetInfo[1]}}</h1>
+      <p class="col-md-8 fs-4">{{assetInfo[3]}}</p>
     </div>
 </div>
 
 <div class="container py-3">
-    <div class="row row-cols-1 row-cols-md-3 mb-3">
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Asset Information</h4>
-              </div>
-              <div class="card-body">
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li><b>Last Inspected: </b>{{data[1]}} at {{data[2]}}</li>
-                  <li><b>Floor: </b>{{data[5]}}</li>
-                  <li><b>Location: </b>{{data[6]}}</li>
-                  <li><b>Result: </b>{{data[51]}}</li>
-                  <li><b>Actions: </b>{{data[50]}}</li>
-                </ul>
-              </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Fire Rating: {{data[7]}}</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[8]}}" width="100%">
-              </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3 text-center">
-              <h4 class="my-0 fw-normal">Asset Sticker</h4>
-            </div>
-            <div class="card-body">
-              <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[4]}}" width="100%">
-            </div>
+  <div class="row row-cols-1 row-cols-md-3 mb-3">
+      <div class="col-lg-4 mb-3 d-flex align-items-stretch">
+        <div class="card mb-4 rounded-3 shadow-sm">
+          <div class="card-header py-3 text-center">
+              <h4 class="my-0 fw-normal">Asset Information</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+              {% if assetInfo[2] != None %}
+              <li><b>Existing Asset Tag: </b>{{assetInfo[2]}}</li>
+              {% endif %}
+              {% if assetInfo[4] != None %}
+              <li><b>Floor: </b>{{assetInfo[4]}}</li>
+              {% endif %}
+              {% if assetInfo[5] != None %}
+              <li><b>Location: </b>{{assetInfo[5]}}</li>
+              {% endif %}
+              {% if assetInfo[6] != None %}
+              <li><b>Flat Number: </b>{{assetInfo[6]}}</li>
+              {% endif %}
+            </ul>
           </div>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3">
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Door Condition: {{data[10]}}</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[11]}}" width="100%">
-              </div>
-            </div>
+
+    <div class="col-lg-4 mb-3 d-flex align-items-stretch">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3 text-center">
+            <h4 class="my-0 fw-normal">Audit Status</h4>
         </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Door Width: {{data[12]}}mm</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[13]}}" width="100%">
-              </div>
-            </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li><b>Last Audit: </b>{{auditInfo[1]}}</li>
+            {% if auditInfo[2] == 'Non-Compliant' %}
+            <li><b>Result: </b><label class="badge bg-danger">{{auditInfo[2]}}</label></li>
+            {% else %}
+            <li><b>Result: </b><label class="badge bg-success">{{auditInfo[2]}}</label></li>
+            {% endif %}
+          </ul>
         </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3 text-center">
-              <h4 class="my-0 fw-normal">Door Height: {{data[14]}}mm</h4>
-            </div>
-            <div class="card-body">
-              <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[15]}}" width="100%">
-            </div>
-          </div>
-        </div>
+      </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3">
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Door Thickness: {{data[16]}}mm</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[17]}}" width="100%">
-              </div>
-            </div>
+
+    {% if auditInfo[2] == 'Non-Compliant' %}
+    
+    <div class="col-lg-4 mb-3 d-flex align-items-stretch">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3 text-center">
+            <h4 class="my-0 fw-normal">Actions</h4>
         </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Frame Condition: {{data[18]}}</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[19]}}" width="100%">
-              </div>
-            </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for action in actions %}
+                      <tr>
+                          <td>{{action[0]}}</td>
+                          {% if action[1] == 'Open' %}
+                          <td><label class="badge bg-danger">{{action[1]}}</label></td>
+                          {% elif action[1] == 'Closed' %}
+                          <td><label class="badge bg-success">{{action[1]}}</label></td>
+                          {% elif action[1] == 'In Progress' %}
+                          <td><label class="badge bg-info">{{action[1]}}</label></td>
+                          {% elif action[1] == 'On Hold' %}
+                          <td><label class="badge bg-warning">{{action[1]}}</label></td>
+                          {% endif %}
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </ul>
         </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3 text-center">
-              <h4 class="my-0 fw-normal">Gap Hinge-Side: {{data[20]}}mm</h4>
-            </div>
-            <div class="card-body">
-              <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[21]}}" width="100%">
-            </div>
-          </div>
-        </div>
+      </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3">
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Gap Opposite-Side: {{data[22]}}mm</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[23]}}" width="100%">
-              </div>
-            </div>
+
+    {% endif %}
+
+  </div>
+</div>
+
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    <h1 class="display-5 fw-bold">Images</h1>
+    <p class="col-md-8 fs-4">Taken during audit on: {{auditInfo[1]}}</p>
+  </div>
+</div>
+
+<div class="container py-3">
+  <div class="row row-cols-1 row-cols-md-3 mb-3">
+    {% for image in images %}
+    <div class="col-lg-4 mb-3 d-flex align-items-stretch">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3 text-center">
+          <h4 class="my-0 fw-normal">{{image[1]}}</h4>
         </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Gap Top: {{data[24]}}mm</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[25]}}" width="100%">
-              </div>
-            </div>
+        <div class="card-body">
+          <a href="https://inspections-assets.s3.eu-west-2.amazonaws.com/previews/{{image[0]}}">
+          <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/thumbs/{{image[0]}}" width="100%">
+          </a>
         </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3 text-center">
-              <h4 class="my-0 fw-normal">Gap Bottom: {{data[26]}}mm</h4>
-            </div>
-            <div class="card-body">
-              <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[27]}}" width="100%">
-            </div>
-          </div>
-        </div>
+      </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3">
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Gap Between Leaf: {{data[28]}}mm</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[29]}}" width="100%">
-              </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Seal: {{data[31]}}</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[32]}}" width="100%">
-              </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3 text-center">
-              <h4 class="my-0 fw-normal">Hinge: {{data[34]}}</h4>
-            </div>
-            <div class="card-body">
-              <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[35]}}" width="100%">
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3">
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Vision Panel: {{data[37]}}</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[38]}}" width="100%">
-              </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Signage: {{data[40]}}</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[41]}}" width="100%">
-              </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-          <div class="card mb-4 rounded-3 shadow-sm">
-            <div class="card-header py-3 text-center">
-              <h4 class="my-0 fw-normal">Closer: {{data[43]}}</h4>
-            </div>
-            <div class="card-body">
-              <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[44]}}" width="100%">
-            </div>
-          </div>
-        </div>
-    </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3">
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Ancillary Components: {{data[46]}}</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[47]}}" width="100%">
-              </div>
-            </div>
-        </div>
-        <div class="col-lg-4 mb-3 d-flex align-items-stretch">
-            <div class="card mb-4 rounded-3 shadow-sm">
-              <div class="card-header py-3 text-center">
-                <h4 class="my-0 fw-normal">Other Findings: {{data[48]}}</h4>
-              </div>
-              <div class="card-body">
-                <img src="https://inspections-assets.s3.eu-west-2.amazonaws.com/images/{{data[49]}}" width="100%">
-              </div>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

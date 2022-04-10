@@ -40,18 +40,59 @@ def asset_url(asset_no):
     cursor = mysql.connection.cursor()
     
     #Executing SQL Statements
-    query = "SELECT * FROM Broad_Quay WHERE DoorNumber=" + str(asset_no)
-    cursor.execute(query)
-    for data in cursor.fetchall() :
-        print(data)
+    queryAssetInfo = "SELECT assets.assetID, assets.assetTagNo, assets.existingTag, asset_types.assetType, assets.floorNo, locations.location, assets.flatno\
+                    FROM assets\
+                    INNER JOIN asset_types ON assets.assetTypeID=asset_types.assetTypeID\
+                    INNER JOIN locations ON assets.locationID=locations.locationID\
+                    WHERE assets.assetTagNo=" + str(asset_no)
+
+    cursor.execute(queryAssetInfo)
+    for assetInfo in cursor.fetchall():
+        break
+
+    assetID = assetInfo[0]
+
+    queryAuditInfo = "SELECT audits.auditID, MAX(audits.auditDate)AS latestAudit, results.result\
+                        FROM audits\
+                        INNER JOIN results ON audits.resultID = results.resultID\
+                        WHERE assetID=" + str(assetID) +\
+                        " GROUP BY auditID"
+
+    cursor.execute(queryAuditInfo)
+    for auditInfo in cursor.fetchall():
+        break
+
+    auditID = auditInfo[0]
+
+    if (auditInfo[2] != "Compliant"):
+        queryActions = "SELECT action_types.action, statuses.status\
+                        FROM actions\
+                        INNER JOIN action_types ON actions.actionID = action_types.actionID\
+                        INNER JOIN statuses ON actions.statusID = statuses.statusID\
+                        WHERE actions.auditID=" + str(auditID)
+
+        cursor.execute(queryActions)
+
+        actions = cursor.fetchall()
+    else:
+        actions = []
+
+    queryImages = "SELECT images.filename, types.type\
+                FROM images\
+                INNER JOIN types on images.typeID=types.typeID\
+                WHERE auditID=" + str(auditID)
+    
+    cursor.execute(queryImages)
+
+    images = cursor.fetchall()
+
     cursor.close()
     
-    return render_template('asset.html', data=data)
+    return render_template('asset.html', assetInfo=assetInfo, auditInfo=auditInfo, actions=actions, images=images)
 
 @app.route("/showAsset", methods=['POST'])
 def showAsset():
     assetNumber = request.form['assetNumber']
-    print("going to: ",assetNumber)
     assetURL = "/eb/bq/" + assetNumber
     return redirect(assetURL)
     
