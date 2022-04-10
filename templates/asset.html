@@ -60,7 +60,6 @@
             <h4 class="my-0 fw-normal">Actions</h4>
         </div>
         <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
             <div class="table-responsive">
               <table class="table">
                   <thead>
@@ -86,13 +85,72 @@
                       {% endfor %}
                   </tbody>
               </table>
-          </ul>
+            </div>
         </div>
       </div>
     </div>
 
     {% endif %}
 
+  </div>
+</div>
+
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    <h1 class="display-5 fw-bold">Attributes</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attribute in attributes %}
+            <tr>
+                <td>{{attribute[0]}}</td>
+                <td>{{attribute[1]}}</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="p-5 mb-4 bg-light rounded-3">
+  <div class="container-fluid py-5">
+    <h1 class="display-5 fw-bold">Components</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Component</th>
+                <th>Condition</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for component in components %}
+            <tr>
+                <td>{{component[0]}}</td>
+                {% if component[1] == 'As Required' %}
+                <td><label class="badge bg-success">{{component[1]}}</label></td>
+                {% else %}
+                <td><label class="badge bg-danger">{{component[1]}}</label></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
   </div>
 </div>
 

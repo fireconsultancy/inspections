@@ -86,9 +86,28 @@ def asset_url(asset_no):
 
     images = cursor.fetchall()
 
+    queryAttributes = "SELECT types.type, attributes.value\
+                    FROM attributes\
+                    INNER JOIN types ON attributes.typeID=types.typeID\
+                    WHERE auditID=" + str(auditID)
+
+    cursor.execute(queryAttributes)
+
+    attributes = cursor.fetchall()
+
+    queryComponents = "SELECT types.type, conditions.condition\
+                    FROM components\
+                    INNER JOIN types ON components.typeID=types.typeID\
+                    INNER JOIN conditions ON components.conditionID=conditions.conditionID\
+                    WHERE auditID=" + str(auditID)
+
+    cursor.execute(queryComponents)
+
+    components = cursor.fetchall()
+
     cursor.close()
     
-    return render_template('asset.html', assetInfo=assetInfo, auditInfo=auditInfo, actions=actions, images=images)
+    return render_template('asset.html', assetInfo=assetInfo, auditInfo=auditInfo, actions=actions, images=images, attributes=attributes, components=components)
 
 @app.route("/showAsset", methods=['POST'])
 def showAsset():
